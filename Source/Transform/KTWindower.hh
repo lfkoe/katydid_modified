@@ -15,7 +15,7 @@
 #include "KTSlot.hh"
 
 #include <string>
-
+#include <cmath>
 
 namespace Katydid
 {

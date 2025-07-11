@@ -39,8 +39,9 @@ namespace Katydid
 
     double KTRectangularWindow::GetWeight(double time) const
     {
-        if (fabs(time - 0.5 * fLength) <= 0.5 * double(fBoxcarSize) * fBinWidth) return 1.;
-        return 0.;
+        //if (fabs(time - 0.5 * fLength) <= 0.5 * double(fBoxcarSize) * fBinWidth) return 1.;
+        //return 0.;
+	return 1;
     }
 
     void KTRectangularWindow::RebuildWindowFunction()
@@ -49,7 +50,8 @@ namespace Katydid
         double halfBW = 0.5 * fBinWidth;
         for (unsigned iBin=0; iBin < fSize; iBin++)
         {
-            fWindowFunction[iBin] = GetWeight(double(iBin) * fBinWidth + halfBW);
+            //fWindowFunction[iBin] = GetWeight(double(iBin) * fBinWidth + halfBW);
+	    fWindowFunction[iBin] = GetWeight(double(iBin));
         }
         return;
     }

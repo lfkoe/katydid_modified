@@ -57,18 +57,26 @@ namespace Katydid
     }
 
 #ifdef ROOT_FOUND
+
+    double S2_factor = 0;
+
     TH1D* KTWindowFunction::CreateHistogram(const string& name) const
     {
         TH1D* hist = new TH1D(name.c_str(), "Window Function", fSize, 0, fLength);
         for (unsigned iHistBin=1; iHistBin<=fSize; iHistBin++)
         {
+	    S2_factor += pow(this->GetWeight(iHistBin-1), 2);
             hist->SetBinContent(iHistBin, this->GetWeight(iHistBin-1));
         }
         hist->SetYTitle("Weight");
+	hist->Scale(1/S2_factor);
+
+	KTINFO(fftlog, "------------------------------------------------- S2 Factor is " << S2_factor);
         return hist;
     }
 
 #ifdef FFTW_FOUND
+
     TH1D* KTWindowFunction::CreateFrequencyResponseHistogram(const string& name) const
     {
         KTTimeSeriesReal timeData(fSize, 0., double(fSize) * fBinWidth);

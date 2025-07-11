@@ -167,7 +167,7 @@ namespace Katydid
         }
         //KTWARN( fslog, "firstPosFreqBin = " << firstPosFreqBin << "; lastPosFreqBin = " << lastPosFreqBin << "; firstNegFreqBin = " << firstNegFreqBin << "; lastNegFreqBin = " << lastNegFreqBin);
 
-        double scaling = 1. / KTPowerSpectrum::GetResistance() / (double)GetNTimeBins();
+        double scaling = 1. / KTPowerSpectrum::GetResistance();
 
         // to replace after Eigen replaces all KTPhysicalArrays
         //int nPosBins = lastPosFreqBin - firstPosFreqBin;

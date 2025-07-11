@@ -15,6 +15,8 @@
 
 #include "factory.hh"
 
+#include <cmath>
+
 using std::string;
 
 
@@ -148,7 +150,7 @@ namespace Katydid
             }
         }
 
-        KTINFO(windowlog, "Windowing complete");
+        KTINFO(windowlog, "Windowing complete______________________________________________");
 
         return true;
     }
@@ -180,13 +182,28 @@ namespace Katydid
                     << "   Bin expected: " << fWindowFunction->GetSize() << ";   Bins in data: " << nBins);
             return false;
         }
+	
+	KTINFO(windowlog, "It's working aaaaaaaaaaaa _____________________________ :)");
 
         double weight;
+	double S2_factor;
+	double scale;
+
+	for (unsigned iBin=0; iBin < nBins; ++iBin)
+        {
+            weight = fWindowFunction->GetWeight(iBin);
+            S2_factor += weight * weight;
+        }
+
+	scale = sqrt(1/S2_factor);
+
         for (unsigned iBin=0; iBin < nBins; ++iBin)
         {
             weight = fWindowFunction->GetWeight(iBin);
-            ts->SetRect(iBin, ts->GetReal(iBin)*weight, ts->GetImag(iBin)*weight);
+            ts->SetRect(iBin, ts->GetReal(iBin)*weight*scale, ts->GetImag(iBin)*weight*scale);
         }
+
+	KTINFO(windowlog, "S2_factor is ________________" << S2_factor);
 
         return true;
     }

@@ -34,7 +34,7 @@ namespace Katydid
      Source: Wikipedia: Hann function (http://en.wikipedia.org/wiki/Hann_function, 8/1/2012)
 
      Available configuration values:
-      none
+      - normalized: bool -- whether to normalize window to maintain power
     */
 
     class KTHannWindow : public KTWindowFunction
@@ -48,8 +48,27 @@ namespace Katydid
             virtual double GetWeight(double time) const;
 
             virtual void RebuildWindowFunction();
-
+	
+	public:
+	    bool GetNormalized() const;
+	    void SetNormalized(bool normalized);
+	
+	private:
+	    bool fNormalized;
+    
     };
+
+    inline bool KTHannWindow::GetNormalized() const
+    {
+	    return fNormalized;
+    }
+
+    inline void KTHannWindow::SetNormalized(bool normalized)
+    {
+	fNormalized = normalized;
+	return;
+    }
+
 
 } /* namespace Katydid */
 #endif /* KTHANNWINDOW_HH_ */
